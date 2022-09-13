@@ -1,0 +1,53 @@
+/* ui css */
+.mar-r-3{
+    margin-right: 3px;
+}
+.mar-r-5{
+    margin-right: 5px;
+}
+.mar-r-10{
+    margin-right: 10px;
+}
+.mar-r-15{
+    margin-right: 15px;
+}
+.mar-r-20{
+    margin-right: 20px;
+}
+.mar-r-30{
+    margin-right: 30px;
+}
+.pad-l-20{
+    padding-left: 20px;
+}
+.c-red{
+    color: #EA0606 !important;
+}
+.c-green{
+    color: #82D616 !important;
+}
+.c-violet{
+    color: #CB0C98 !important;
+}
+.font-12{
+    font-size: 12px;
+}
+.op-dark{
+    z-index: 100;
+}
+/* dashboard css */
+.top-icon{
+    font-size: 18px;
+    margin-top: 5px;
+}
+.dash-icon{
+    font-size: 16px !important;
+    color: rgb(75, 75, 75) !important;
+}
+.nav-link.active .dash-icon{
+    color: #fff !important;
+}
+.icon-list{
+    font-size: 13px;
+}
+
