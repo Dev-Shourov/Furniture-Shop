@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Backend\Category\Categorylist;
+use App\Http\Livewire\Backend\Tag\Taglist;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,5 @@ Route::group(['prefix'=>'admin'], function(){
     });
     // -----:::Category Route:::-----
     Route::get('/category', Categorylist::class)->name('category.manage');
+    Route::get('/tag', Taglist::class)->name('tag.manage');
 });
