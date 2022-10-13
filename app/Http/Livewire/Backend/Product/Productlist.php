@@ -1,60 +1,64 @@
 <?php
 
-namespace App\Http\Livewire\Backend\Tag;
+namespace App\Http\Livewire\Backend\Product;
 
 use Livewire\Component;
-use App\Models\Backend\Tag;
+use Livewire\WithFileUploads;
+use App\Models\Backend\Product;
 use Illuminate\Support\Str;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Validator;
+use File;
 
-class Taglist extends Component
+class Productlist extends Component
 {
     public $showUpdateModal = false;
-    public $tagData         = [];
+    public $prodData        = [];
 
     public function render()
     {
-        $tags = Tag::latest()->paginate();
-        return view('livewire.backend.tag.taglist', compact('tags'));
+        $products = Product::latest()->paginate();
+        return view('livewire.backend.product.productlist', compact('products'));
     }
 
-    public function addTag(){
+    public function addProduct(){
         $this->showUpdateModal = false;
         $this->dispatchBrowserEvent('show-form');
+        $this->dispatchBrowserEvent('img_required');
     }
 
-    public function editTag(Tag $tag){
+    public function editProduct(Product $tag){
         $this->showUpdateModal  = true;
-        $this->tagData          = $tag->toArray();
+        $this->prodData         = $product->toArray();
         $this->dispatchBrowserEvent('show-form');
     }
 
-    public function confirmDel(Tag $tag){
-        $this->tagData          = $tag->toArray();
+    public function confirmDel(Product $product){
+        $this->prodData         = $product->toArray();
         $this->dispatchBrowserEvent('show-confirm');
     }
     
-    public function createTag(){
-        $tag               = new Tag;
-        $tag->tag_name     = $this->tagData['tag_name'];
-        $tag->tag_str      = Str::slug($this->tagData['tag_name']);
-        $tag->save();
+    public function createProduct(){
+        $product               = new Product;
+        $product->prod_name     = $this->prodData['prod_name'];
+        $product->prod_str      = Str::slug($this->prodData['prod_name']);
+        $product->save();
         // browser events
         $this->browserEvents();
         // toastr alert
         $this->dispatchBrowserEvent('alert',[
             'type' => 'success',  
-            'message' => 'Tag Created Successfully!'
+            'message' => 'Product Created Successfully!'
         ]);
 
         return redirect()->back();
     }
 
-    public function updateTag(){
-        $tag               = Tag::find($this->tagData['id']);
-        $tag->tag_name     = $this->tagData['tag_name'];
-        $tag->tag_str      = Str::slug($this->tagData['tag_name']);
-        $tag->save();
+    public function updateProduct(){
+        $product               = Product::find($this->prodData['id']);
+        $product->prod_name     = $this->prodData['prod_name'];
+        $product->prod_str      = Str::slug($this->prodData['prod_name']);
+        $product->save();
         // browser events
         $this->browserEvents();
         // toastr alert
@@ -66,9 +70,9 @@ class Taglist extends Component
         return redirect()->back();
     }
 
-    public function deleteTag(){
-        $tag   = Tag::find($this->tagData['id']);
-        $tag->delete();
+    public function deleteProduct(){
+        $product   = Product::find($this->prodData['id']);
+        $product->delete();
         $this->dispatchBrowserEvent('hide-confirm');
         $this->dispatchBrowserEvent('alert',[
             'type' => 'success',  
